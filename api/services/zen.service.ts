@@ -1,5 +1,6 @@
 import puppeteer, {Browser, Page, Protocol, PuppeteerLaunchOptions} from "puppeteer";
 import fs from 'fs';
+import {sendTelegramMessage} from "./telegram.service";
 
 const selectors = {
     addButtonSelector: "button[class^=author-studio-header__addButton]",
@@ -106,14 +107,14 @@ async function writePost(browser: Browser, title: string, text: string) {
 
     await page.waitForSelector(selectors.articleTextInput);
     const editor = await page.$(selectors.articleTextInput);
-    await editor.click({delay: 100});
+    await editor.click({delay: 250});
 
     await editor.type(text, {
-        delay: 100
+        delay: 150
     })
 
     const contentElement = await page.$(".content");
-    await contentElement.click({delay: 150})
+    await contentElement.click({delay: 250})
 
     setTimeout(() => {
         browser.close();
