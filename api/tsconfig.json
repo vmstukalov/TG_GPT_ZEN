@@ -4,7 +4,9 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution":"node",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "outDir": "build",
+    "rootDir": "./"
   },
   "exclude": [
     "node_modules"
