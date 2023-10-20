@@ -18,7 +18,7 @@ export async function ask(request: string) {
     console.log({completion})
 
     if (finish_reason === 'length') {
-
+        //обработка кнопки "Continue"
     }
 
     return result;

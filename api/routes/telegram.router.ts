@@ -1,7 +1,8 @@
-import express, { Request } from 'express';
+import express, {Request, text} from 'express';
 import {ITelegramUpdate} from "../interfaces/ITelegramUpdate";
 import {ask} from "../services/gpt.service";
 import {createPost} from "../services/zen.service";
+import {sendTelegramMessage} from "../services/telegram.service";
 
 const telegramRouter = express.Router()
 
@@ -19,8 +20,9 @@ telegramRouter.post("/webhook/:secret", async (req: Request<{ITelegramUpdate, se
 
     if (telegramUpdate.message) {
         const title = telegramUpdate.message.text
-        ask(title).then(text => {
-            createPost(title, text, isLocalhost)
+        ask(title).then(async text => {
+            createPost(title, text, isLocalhost);
+            sendTelegramMessage(telegramUpdate.message.from.id, `Текст <b>${title}</b> придуман. Длина ${text.toString().length}. Публикация займет несколько минут.`)
         })
     }
 

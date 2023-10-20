@@ -13,7 +13,7 @@ export async function createPost(title: string, text: string, isLocalhost: boole
 
 
     const browser = await puppeteer.launch({
-        headless: !isLocalhost,
+        headless: isLocalhost ? false : "new",
         defaultViewport: null
     });
 

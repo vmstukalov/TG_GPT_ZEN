@@ -21,8 +21,6 @@ zenRouter.get("/post", async (req, res) => {
 
     const isLocalhost = req.headers.host.includes("localhost");
 
-    console.log(req.headers.host)
-
     await createPost("Что это", "Это текст", isLocalhost);
 
     res.json({ok: true})
