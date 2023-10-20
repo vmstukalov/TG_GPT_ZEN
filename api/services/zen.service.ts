@@ -111,7 +111,7 @@ async function writePost(browser: Browser, title: string, text: string) {
     console.log({editor})
 
 
-    await editor.click({delay: 500, count: 3});
+    await editor.click({delay: 750, count: 3});
 
 
     await editor.type(text, {
@@ -122,7 +122,9 @@ async function writePost(browser: Browser, title: string, text: string) {
     await contentElement.click({delay: 250})
 
     setTimeout(() => {
-        browser.close();
+        browser.close().then(() => {
+            console.log("Браузер закрыт")
+        });
     }, 10000);
 
 }
