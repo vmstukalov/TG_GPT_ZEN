@@ -1,0 +1,3 @@
+{
+  "ignore": ["api/cookies.json", "README.md", "api/.env"]
+}
