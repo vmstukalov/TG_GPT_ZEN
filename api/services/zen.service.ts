@@ -9,7 +9,7 @@ const selectors = {
 
 }
 
-export async function createPost(title: string, text: string) {
+export async function createPost(title: string, text: string, isLocalhost: boolean) {
 
 
     const browser = await puppeteer.launch({
@@ -79,9 +79,10 @@ async function writePost(browser: Browser, title: string, text: string) {
 
     await page.waitForSelector(selectors.articleTextInput);
     const articleTitleInput = await page.$(selectors.articleTitleInput);
-    await articleTitleInput.click()
+    await articleTitleInput.click({delay: 150})
 
     const editableTitleElements = await page.$$(`${selectors.articleTitleInput} *`);
+
     editableTitleElements.forEach((e, i) => {
         try {
             e.type(" ");
@@ -89,11 +90,10 @@ async function writePost(browser: Browser, title: string, text: string) {
         }
     });
 
-    await page.keyboard.press('Backspace');
-
-
     const titleInput = editableTitleElements[editableTitleElements.length - 1];
     await titleInput.type(title, {delay: 100});
+
+
 
     await page.waitForSelector(selectors.articleTextInput);
     const editor = await page.$(selectors.articleTextInput);

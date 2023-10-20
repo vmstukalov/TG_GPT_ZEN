@@ -10,7 +10,7 @@ gptRouter.get("/start", async (req, res) => {
 
     const response = await ask(request)
 
-    await createPost(request, response);
+    await createPost(request, response, true);
 
     res.json({ok: true, response})
 })

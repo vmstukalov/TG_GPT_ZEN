@@ -1,0 +1,40 @@
+name: deploy
+
+on:
+  push:
+    branches: [ master ]
+jobs:
+  update-files:
+    timeout-minutes: 2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Files
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSHKEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd ~/TG_GPT_ZEN
+            git reset --hard origin/master
+            git pull
+  deploy-api:
+    needs: [update-files]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSHKEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd ~/TG_GPT_ZEN/api
+            npm install
+            pm2 restart api
