@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es6",
     "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution":"node",
-    "skipLibCheck": true,
     "outDir": "build",
-    "rootDir": "./"
+    "rootDir": "./",
+    "skipLibCheck": true
+  },
+  "ts-node": {
+    "transpileOnly": true
   },
   "exclude": [
     "node_modules"

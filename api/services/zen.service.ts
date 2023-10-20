@@ -13,7 +13,7 @@ export async function createPost(title: string, text: string, isLocalhost: boole
 
 
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: !isLocalhost,
         defaultViewport: null
     });
 
@@ -55,7 +55,7 @@ export async function createPost(title: string, text: string, isLocalhost: boole
 
     await page.waitForSelector(`${selectors.addArticleButtonSelector} span[class^=new-publication-dropdown__buttonTitle]`);
     //console.log(page.$(selectors.addArticleButtonSelector))
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(5000);
     await page.click(selectors.addArticleButtonSelector);
 
 
