@@ -1,4 +1,4 @@
-import puppeteer, {Browser, Page, Protocol} from "puppeteer";
+import puppeteer, {Browser, Page, Protocol, PuppeteerLaunchOptions} from "puppeteer";
 import fs from 'fs';
 
 const selectors = {
@@ -11,12 +11,20 @@ const selectors = {
 
 export async function createPost(title: string, text: string, isLocalhost: boolean) {
 
-
-    const browser = await puppeteer.launch({
+    let options: PuppeteerLaunchOptions = {
         headless: isLocalhost ? false : "new",
         defaultViewport: null,
-        args: ["--no-sandbox"]
-    });
+        args: isLocalhost ? [] : ["--no-sandbox"],
+    }
+
+    if (isLocalhost) {
+        options = {
+            ...options,
+            executablePath: '/usr/bin/chromium-browser'
+        }
+    }
+
+    const browser = await puppeteer.launch(options);
 
 
     if (!fs.existsSync("cookies.json")) {
