@@ -37,4 +37,5 @@ jobs:
             source ~/.nvm/nvm.sh
             cd ~/TG_GPT_ZEN/api
             npm install
+            npm run build
             pm2 restart api
