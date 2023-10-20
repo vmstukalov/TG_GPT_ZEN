@@ -20,9 +20,12 @@ telegramRouter.post("/webhook/:secret", async (req: Request<{ITelegramUpdate, se
 
     if (telegramUpdate.message) {
         const title = telegramUpdate.message.text
+        console.log({request: title});
         ask(title).then(async text => {
             createPost(title, text, isLocalhost);
             sendTelegramMessage(telegramUpdate.message.from.id, `Текст <b>${title}</b> придуман. Длина ${text.toString().length}. Публикация займет несколько минут.`)
+        }).catch(e => {
+
         })
     }
 
