@@ -18,7 +18,7 @@ export async function createPost(title: string, text: string, isLocalhost: boole
         args: isLocalhost ? [] : ["--no-sandbox"],
     }
 
-    if (isLocalhost) {
+    if (!isLocalhost) {
         options = {
             ...options,
             executablePath: '/usr/bin/chromium-browser'
@@ -107,7 +107,12 @@ async function writePost(browser: Browser, title: string, text: string) {
 
     await page.waitForSelector(selectors.articleTextInput);
     const editor = await page.$(selectors.articleTextInput);
-    await editor.click({delay: 250});
+
+    console.log({editor})
+
+
+    await editor.click({delay: 500, count: 3});
+
 
     await editor.type(text, {
         delay: 150
