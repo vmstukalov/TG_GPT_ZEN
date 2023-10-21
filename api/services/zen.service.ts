@@ -108,8 +108,7 @@ async function writePost(browser: Browser, title: string, text: string) {
     await page.waitForSelector(selectors.articleTextInput);
     const editor = await page.$(selectors.articleTextInput);
 
-    console.log({editor})
-
+    //console.log({editor})
 
     await editor.click({delay: 750, count: 3});
 
